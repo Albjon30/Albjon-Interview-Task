@@ -78,8 +78,8 @@ class LeadingButton extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
-          border: Border.all(
-              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
+          border: Border.all(color:          const Color.fromRGBO(149, 149, 149, 1),
+            , width: 1),
         ),
         child: Icon(
           View.of(context).viewInsets.bottom > 0.0
@@ -125,13 +125,9 @@ class _AppBarActionsState extends State<AppBarActions> {
     switch (widget.screen) {
       case Routes.cameraScreen:
         return [
-          _buildCircleIcon(icon: Icons.swap_horiz, onTap: () => ()),
-        ];
-      case Routes.imagePreviewScreen:
-        return [
           _buildCircleIcon(
-            icon: Icons.settings_outlined,
-            onTap: () => context.push(Routes.settingsScreen),
+            icon: Icons.swap_horiz,
+            onTap: () => context.pop(context),
           ),
         ];
       case Routes.imagePreviewScreen:
@@ -194,7 +190,7 @@ class _AppBarActionsState extends State<AppBarActions> {
         ),
         child: Icon(
           icon,
-          color: Colors.white.withOpacity(0.3),
+          color: const Color.fromRGBO(149, 149, 149, 1),
         ),
       ),
     );
