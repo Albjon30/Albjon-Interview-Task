@@ -20,21 +20,23 @@ class _CameraScreenState extends State<CameraScreen> {
         _getAvailableCameras(); // Initialize Future here
   }
 
-  // get available cameras and initialize the first camera
+  // Get available cameras and initialize the first camera
   Future<void> _getAvailableCameras() async {
     WidgetsFlutterBinding.ensureInitialized();
     _availableCameras = await availableCameras();
     await _initCamera(_availableCameras.first); // Initialize the first camera
   }
 
-  // init camera
+  // Initialize camera
   Future<void> _initCamera(CameraDescription description) async {
-    _cameraController =
-        CameraController(description, ResolutionPreset.max, enableAudio: true);
+    _cameraController = CameraController(
+      description,
+      ResolutionPreset.max,
+      enableAudio: true,
+    );
 
     try {
       await _cameraController.initialize();
-      // Notify the widgets that the camera has been initialized
       setState(() {});
     } catch (e) {
       print(e);
@@ -43,81 +45,116 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void dispose() {
-    // Dispose the controller when the widget is disposed
     _cameraController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // Display the camera preview when initialized
-            final scale = 1 /
-                (_cameraController.value.aspectRatio *
-                    MediaQuery.of(context).size.aspectRatio);
-            return Transform.scale(
-              scale: scale,
-              alignment: Alignment.topCenter,
-              child: CameraPreview(_cameraController),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(child: Text("Error initializing camera"));
-          } else {
-            // Otherwise, display a loading indicator
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () async {
-              try {
-                // Ensure the camera is initialized
-                await _initializeControllerFuture;
+    return FutureBuilder<void>(
+      future: _initializeControllerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          final scale = 1 /
+              (_cameraController.value.aspectRatio *
+                  MediaQuery.of(context).size.aspectRatio);
+          return Stack(
+            children: [
+              Transform.scale(
+                scale: scale,
+                alignment: Alignment.topCenter,
+                child: CameraPreview(_cameraController),
+              ),
+              Positioned(
+                top: 60,
+                right: 25,
+                child: GestureDetector(
+                  onTap: () async {
+                    // get current lens direction (front / rear)
+                    final lensDirection =
+                        _cameraController.description.lensDirection;
+                    CameraDescription newDescription;
+                    if (lensDirection == CameraLensDirection.front) {
+                      newDescription = _availableCameras.firstWhere(
+                          (description) =>
+                              description.lensDirection ==
+                              CameraLensDirection.back);
+                    } else {
+                      newDescription = _availableCameras.firstWhere(
+                          (description) =>
+                              description.lensDirection ==
+                              CameraLensDirection.front);
+                    }
 
-                // Take a picture and get the file path
-                final image = await _cameraController.takePicture();
+                    await _initCamera(newDescription);
+                  },
+                  child: Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: const Color.fromRGBO(149, 149, 149, 1),
+                        width: 1,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.switch_camera_outlined,
+                      color: Color.fromRGBO(149, 149, 149, 1),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 60), // Adjust distance from the bottom
+                  child: GestureDetector(
+                    onTap: () async {
+                      try {
+                        // Ensure the camera is initialized
+                        await _initializeControllerFuture;
 
-                // Display the picture or save it to a file, etc.
-                context.push(Routes.imagePreviewScreen,
-                    extra: {'imagePath': image.path});
-                print("Picture saved to: ${image.path}");
-              } catch (e) {
-                print(e);
-              }
-            },
-            child: Icon(Icons.camera),
-          ),
-          SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () async {
-              // get current lens direction (front / rear)
-              final lensDirection = _cameraController.description.lensDirection;
-              CameraDescription newDescription;
-              if (lensDirection == CameraLensDirection.front) {
-                newDescription = _availableCameras.firstWhere((description) =>
-                    description.lensDirection == CameraLensDirection.back);
-              } else {
-                newDescription = _availableCameras.firstWhere((description) =>
-                    description.lensDirection == CameraLensDirection.front);
-              }
+                        // Take a picture and get the file path
+                        final image = await _cameraController.takePicture();
 
-              if (newDescription != null) {
-                // Switch to the new camera
-                await _initCamera(newDescription);
-              }
-            },
-            child: Icon(Icons.cameraswitch),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                        // Display the picture or save it to a file, etc.
+                        if (context.mounted) {
+                          context.push(Routes.imagePreviewScreen,
+                              extra: {'imagePath': image.path});
+                        }
+                      } catch (e) {}
+                    },
+                    child: Container(
+                      width: 74,
+                      height: 74,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1,
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.circle,
+                        size: 70,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return const Center(child: Text("Error initializing camera"));
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

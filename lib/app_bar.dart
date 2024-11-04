@@ -125,10 +125,10 @@ class _AppBarActionsState extends State<AppBarActions> {
     switch (widget.screen) {
       case Routes.cameraScreen:
         return [
-          _buildCircleIcon(
-            icon: Icons.swap_horiz,
-            onTap: () => context.pop(context),
-          ),
+          // _buildCircleIcon(
+          //   icon: Icons.swap_horiz,
+          //   onTap: () => context.pop(context),
+          // ),
         ];
       case Routes.imagePreviewScreen:
         return [
