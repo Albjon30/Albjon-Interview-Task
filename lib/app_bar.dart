@@ -78,8 +78,8 @@ class LeadingButton extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
-          border: Border.all(color:          const Color.fromRGBO(149, 149, 149, 1),
-            , width: 1),
+          border: Border.all(
+              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
         ),
         child: Icon(
           View.of(context).viewInsets.bottom > 0.0
