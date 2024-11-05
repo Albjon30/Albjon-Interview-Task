@@ -40,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _unlockApp() async {
+    await PreferencesHelper.setIsAppUnlocked(true);
     setState(() {
       _isAppUnlocked = true;
     });

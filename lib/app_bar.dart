@@ -84,14 +84,13 @@ class LeadingButton extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
-          border: Border.all(
-              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
+          border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
         ),
         child: Icon(
           View.of(context).viewInsets.bottom > 0.0
               ? Icons.close
               : Icons.arrow_back,
-          color: const Color.fromRGBO(149, 149, 149, 1),
+          color: Colors.white.withOpacity(0.8),
         ),
       ),
     );
@@ -189,13 +188,9 @@ class _AppBarActionsState extends State<AppBarActions> {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
-          border: Border.all(
-              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
+          border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
         ),
-        child: Icon(
-          icon,
-          color: const Color.fromRGBO(149, 149, 149, 1),
-        ),
+        child: Icon(icon, color: Colors.white.withOpacity(0.8)),
       ),
     );
   }

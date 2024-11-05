@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,8 +31,9 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
 
   Future<void> _checkUnlockStatus() async {
     // Check if the app i s unlocked in SharedPrefgerences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isAppUnlocked = prefs.getBool('isAppUnlocked') ?? false;
+    var isAppUnlocked = await PreferencesHelper.getIsAppUnlocked();
+
+    print(isAppUnlocked);
     setState(() {
       _isAppUnlocked = isAppUnlocked;
       _isBannerVisible = !isAppUnlocked;
@@ -48,11 +50,10 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
   void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: adUnitId,
-      size: AdSize.banner,
+      size: AdSize.largeBanner,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
-          print('Banner Ad loaded.');
           setState(() {
             _bannerAd = ad as BannerAd;
             _isLoaded = true;

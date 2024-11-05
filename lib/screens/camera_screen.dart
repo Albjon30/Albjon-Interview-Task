@@ -18,15 +18,15 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeControllerFuture =
-        _getAvailableCameras(); // Initialize Future here
+    _initializeControllerFuture = _getAvailableCameras();
   }
 
   // Get available cameras and initialize the first camera
   Future<void> _getAvailableCameras() async {
     WidgetsFlutterBinding.ensureInitialized();
     _availableCameras = await availableCameras();
-    await _initCamera(_availableCameras.first); // Initialize the first camera
+    // Initialize the first camera
+    await _initCamera(_availableCameras.first);
   }
 
   // Initialize camera
@@ -72,7 +72,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 right: 25,
                 child: GestureDetector(
                   onTap: () async {
-                    // get current lens direction (front / rear)
+                    // get current lens direction of the cameraa (front / rear)
                     final lensDirection =
                         _cameraController.description.lensDirection;
                     CameraDescription newDescription;
@@ -97,13 +97,13 @@ class _CameraScreenState extends State<CameraScreen> {
                       shape: BoxShape.circle,
                       color: Colors.transparent,
                       border: Border.all(
-                        color: const Color.fromRGBO(149, 149, 149, 1),
+                        color: Colors.white.withOpacity(0.8),
                         width: 1,
                       ),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.swap_horiz_outlined,
-                      color: Color.fromRGBO(149, 149, 149, 1),
+                      color: Colors.white.withOpacity(0.8),
                     ),
                   ),
                 ),
@@ -111,8 +111,7 @@ class _CameraScreenState extends State<CameraScreen> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 60), // Adjust distance from the bottom
+                  padding: const EdgeInsets.only(bottom: 60),
                   child: GestureDetector(
                     onTap: () async {
                       try {

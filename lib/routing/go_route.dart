@@ -22,14 +22,11 @@ class CustomTransition extends CustomTransitionPage<void> {
     super.key,
     required super.child,
   }) : super(
-          transitionDuration: const Duration(milliseconds: 30),
+          transitionDuration: const Duration(milliseconds: 100),
           reverseTransitionDuration: const Duration(milliseconds: 0),
           maintainState: false,
           transitionsBuilder: (_, animation, __, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return child;
           },
         );
 }
