@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 20),
