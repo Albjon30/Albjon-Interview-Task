@@ -51,9 +51,9 @@ class BackgroundImage extends StatelessWidget {
 }
 
 class FloatingButton extends StatelessWidget {
-  const FloatingButton({super.key, required this.routeRedirection});
+  const FloatingButton({super.key, required this.onPressed});
 
-  final String routeRedirection;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,7 @@ class FloatingButton extends StatelessWidget {
       right: 0,
       child: FloatingActionButton(
         shape: const CircleBorder(),
-        onPressed: () {
-          context.push(routeRedirection);
-        },
+        onPressed: onPressed,
         backgroundColor: Colors.white,
         child: const Icon(Icons.arrow_forward, color: Colors.black),
       ),
@@ -82,35 +80,42 @@ OutlineInputBorder outlineInputBorder() {
 }
 
 Widget buildDateInputField({
+  TextEditingController? controller,
+  FormFieldValidator<String>? validator,
   Function()? onTap,
   double? width,
   String? label,
-  required String value,
+  String? hintText,
+  String? value,
   required bool readOnly,
 }) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       IntrinsicWidth(
         stepWidth: width ?? 0.0,
         child: TextFormField(
+          controller: controller,
           onTap: onTap,
           decoration: InputDecoration(
             labelStyle: const TextStyle(color: Colors.white, fontSize: 16),
             filled: true,
+            hintText: hintText,
             fillColor: Colors.black.withOpacity(0.1),
             contentPadding: const EdgeInsets.all(20),
             border: outlineInputBorder(),
           ),
-          style: const TextStyle(color: Colors.white, fontSize: 20),
+          style: const TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           initialValue: value,
           readOnly: readOnly,
           textAlign: TextAlign.center,
+          validator: validator,
         ),
       ),
       if (label != null) ...{
         const SizedBox(height: 5),
-        Text(label),
+        Text(label, style: TextStyle(color: Color.fromRGBO(149, 149, 149, 1))),
       }
     ],
   );

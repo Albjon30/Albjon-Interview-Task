@@ -100,7 +100,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       ),
                     ),
                     child: const Icon(
-                      Icons.switch_camera_outlined,
+                      Icons.swap_horiz_outlined,
                       color: Color.fromRGBO(149, 149, 149, 1),
                     ),
                   ),

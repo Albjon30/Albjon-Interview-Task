@@ -72,20 +72,23 @@ class LeadingButton extends StatelessWidget {
       onTap: () {
         context.pop(context);
       },
-      child: Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.transparent,
-          border: Border.all(
-              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
-        ),
-        child: Icon(
-          View.of(context).viewInsets.bottom > 0.0
-              ? Icons.close
-              : Icons.arrow_back,
-          color: const Color.fromRGBO(149, 149, 149, 1),
+      child: FocusableActionDetector(
+        onFocusChange: (focused) {},
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.transparent,
+            border: Border.all(
+                color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
+          ),
+          child: Icon(
+            View.of(context).viewInsets.bottom > 0.0
+                ? Icons.close
+                : Icons.arrow_back,
+            color: const Color.fromRGBO(149, 149, 149, 1),
+          ),
         ),
       ),
     );
@@ -107,7 +110,7 @@ class _AppBarActionsState extends State<AppBarActions> {
   @override
   void initState() {
     super.initState();
-    // Set the progress value here only once to prevent resetting the animtion
+    // Set the progres value here only once to prevent resetting the animtion
     progress = percentage(widget.screen);
   }
 
@@ -123,13 +126,6 @@ class _AppBarActionsState extends State<AppBarActions> {
 
   List<Widget> _buildActions(BuildContext context) {
     switch (widget.screen) {
-      case Routes.cameraScreen:
-        return [
-          // _buildCircleIcon(
-          //   icon: Icons.swap_horiz,
-          //   onTap: () => context.pop(context),
-          // ),
-        ];
       case Routes.imagePreviewScreen:
         return [
           _buildCircleIcon(
@@ -137,7 +133,10 @@ class _AppBarActionsState extends State<AppBarActions> {
             onTap: () => context.push(Routes.settingsScreen),
           ),
         ];
-      default:
+      case Routes.birthdayScreen ||
+            Routes.genderScreen ||
+            Routes.addPhotoScreen ||
+            Routes.nicknameScreen:
         return [
           CircularPercentIndicator(
             radius: 23.0,
@@ -155,6 +154,8 @@ class _AppBarActionsState extends State<AppBarActions> {
             progressColor: Colors.white,
           ),
         ];
+      default:
+        return [];
     }
   }
 

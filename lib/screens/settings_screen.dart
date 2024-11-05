@@ -1,5 +1,7 @@
+import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,6 +12,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isAppUnlocked = false;
+  String nickname = '';
+  String birthday = '';
 
   @override
   void initState() {
@@ -18,42 +22,102 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadUnlockStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final date = await PreferencesHelper.getDate();
+    final username = await PreferencesHelper.getNickname();
+    _isAppUnlocked = await PreferencesHelper.getIsAppUnlocked();
+
     setState(() {
-      _isAppUnlocked = prefs.getBool('isAppUnlocked') ?? false;
+      if (username != null) nickname = username;
+      if (date['day'] != null &&
+          date['month'] != null &&
+          date['year'] != null) {
+        birthday = "${date['day']!}/${date['month']!}/${date['year']!}";
+      }
+    });
+    setState(() {
+      _isAppUnlocked = _isAppUnlocked;
     });
   }
 
   Future<void> _unlockApp() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isAppUnlocked', true);
+    await PreferencesHelper.setIsAppUnlocked(true);
     setState(() {
       _isAppUnlocked = true;
     });
   }
 
+  Future<void> _rateApp() async {
+    final inAppReview = InAppReview.instance;
+    await inAppReview.openStoreListing();
+  }
+
   void _showUnlockDialog() {
     showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Unlock App'),
-          content: const Text('Are you sure you want to unlock the app?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () {
-                _unlockApp(); // Unlock the app
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Yes'),
-            ),
-          ],
-        );
-      },
+      builder: (context) => _buildUnlockDialog(context),
+    );
+  }
+
+  void _showFeedbackDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => _buildFeedbackDialog(context),
+    );
+  }
+
+  Widget _buildUnlockDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.grey[900],
+      title: const Text(
+        'Unlock App',
+        style: TextStyle(color: Colors.white),
+      ),
+      content: const Text(
+        'Are you sure you want to unlock the app?',
+        style: TextStyle(color: Colors.white),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(),
+          child: const Text('No', style: TextStyle(color: Colors.white)),
+        ),
+        TextButton(
+          onPressed: () {
+            _unlockApp();
+            context.pop();
+          },
+          child: const Text('Yes', style: TextStyle(color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeedbackDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.grey[900],
+      title: const Text(
+        "We Value Your Feedback",
+        style: TextStyle(color: Colors.white),
+      ),
+      content: const Text(
+        "Would you like to send us feedback about your experience?",
+        style: TextStyle(color: Colors.white),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            // Optionally, open an email client or feedback form
+          },
+          child: const Text("Send Feedback",
+              style: TextStyle(color: Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child:
+              const Text("No, Thanks", style: TextStyle(color: Colors.white)),
+        ),
+      ],
     );
   }
 
@@ -93,9 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Rate Us',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onTap: () {
-                    // Add rate us functionality
-                  },
+                  onTap: _showFeedbackDialog, // Call the feedback dialog
                 ),
               ],
             ),
@@ -121,9 +183,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Username',
                     style: TextStyle(color: Colors.white),
                   ),
-                  trailing: const Text(
-                    'John Smith', // Replace with dynamic username
-                    style: TextStyle(color: Colors.grey),
+                  trailing: Text(
+                    nickname,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
                 const Divider(color: Colors.grey),
@@ -132,9 +194,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Birthday',
                     style: TextStyle(color: Colors.white),
                   ),
-                  trailing: const Text(
-                    '10 Feb 1989', // Replace with dynamic birthday
-                    style: TextStyle(color: Colors.grey),
+                  trailing: Text(
+                    birthday,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
               ],
