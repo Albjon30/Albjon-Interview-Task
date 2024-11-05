@@ -78,6 +78,56 @@ class BirthdayScreenState extends State<BirthdayScreen> {
     }
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    if (_yearController.text.isNotEmpty &&
+        _monthController.text.isNotEmpty &&
+        _dayController.text.isNotEmpty) {
+      try {
+        initialDate = DateTime(
+          int.parse(_yearController.text),
+          int.parse(_monthController.text),
+          int.parse(_dayController.text),
+        );
+
+        // Ensure the i nitial date does not exceedd the last date
+        if (initialDate.isAfter(DateTime.now())) {
+          initialDate = DateTime.now();
+        }
+      } catch (e) {
+        initialDate = DateTime.now();
+      }
+    }
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: Colors.purple,
+              onPrimary: Colors.white,
+              onSurface: Colors.white,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _dayController.text = picked.day.toString().padLeft(2, '0');
+        _monthController.text = picked.month.toString().padLeft(2, '0');
+        _yearController.text = picked.year.toString();
+      });
+    }
+  }
+
   @override
   void dispose() {
     _dayController.dispose();
@@ -104,43 +154,78 @@ class BirthdayScreenState extends State<BirthdayScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildDateInputField(
-                    label: "Day",
-                    controller: _dayController,
-                    hintText: 'DD',
-                    readOnly: false,
-                    maxLength: 2,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      buildDateInputField(
+                        label: "Day",
+                        controller: _dayController,
+                        hintText: 'DD',
+                        readOnly: false,
+                        maxLength: 2,
+                      ),
+                      const SizedBox(width: 10),
+                      buildDateInputField(
+                        label: "Month",
+                        controller: _monthController,
+                        hintText: 'MM',
+                        readOnly: false,
+                        maxLength: 2,
+                      ),
+                      const SizedBox(width: 10),
+                      buildDateInputField(
+                        label: "Year",
+                        controller: _yearController,
+                        hintText: 'YYYY',
+                        readOnly: false,
+                        maxLength: 4,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 20),
-                  buildDateInputField(
-                    label: "Month",
-                    controller: _monthController,
-                    readOnly: false,
-                    hintText: 'MM',
-                    maxLength: 2,
-                  ),
-                  const SizedBox(width: 20),
-                  buildDateInputField(
-                    label: "Year",
-                    controller: _yearController,
-                    readOnly: false,
-                    hintText: 'YYYY',
-                    maxLength: 4,
+                  if (_errorMessage != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        _errorMessage!,
+                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                      ),
+                    ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: Container(
+                      width: 190,
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1,
+                              color: const Color.fromRGBO(149, 149, 149, 0.5)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15))),
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 20),
+                          Text(
+                            "Choose a Date",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              if (_errorMessage != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    _errorMessage!,
-                    style: const TextStyle(color: Colors.red, fontSize: 14),
-                  ),
-                ),
             ],
           ),
         ),

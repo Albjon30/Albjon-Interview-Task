@@ -1,16 +1,16 @@
 # app_task_demo
 
-Albjon-Interview-Task-apply-at-supono
+apply-at-supono
 
-## Getting Started
+Albjon-Interview-Task 
 
-This project is a starting point for a Flutter application.
+1. Date Picker Customization
+The Date Picker dialog has been customized to match the application's overall theme and 
+provide a better user experience. The new feature added to customize the Date Picker dialog
+significantly enhances the application's aesthetics and user experience.
 
-A few resources to get you started if this is your first Flutter project:
+2. Form Validation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Validation has been added to various input fields to ensure users enter valid and meaningful information.
+This includes validating the date input fields for the user's birthdate,
+such as day, month, and year, to prevent invalid or impossible dates.
