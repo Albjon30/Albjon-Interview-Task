@@ -1,0 +1,36 @@
+{
+  "titleSplashScreen":"Are you ready for\nyour test?",
+  "subTitleSplashScreen":"Start now by creating your profile and connect!",
+  "continueButton": "Continue",
+  "birthdayQuestion":"When’s your\nbirthday?",
+  "day": "Day",
+  "month": "Month",
+  "year": "Year",
+  "chooseDate": "Choose a Date",
+  "chooseNickname": "Choose your\nnickname",
+  "nicknameLabel": "Nickname",
+  "genderQuestion": "Which gender do you\nidentify as?",
+  "genderHelperText": "Your gender helps us find the right\nmatches for you.",
+  "genderMale": "Male",
+  "genderFemale": "Female",
+  "genderOther": "Other",
+  "addPhotoPrompt": "Add a nice photo\nof yourself",
+  "takePhotoButton": "Take your first photo",
+  "photoGuidelineHeader": "Make sure that your image",
+  "photoGuidelineFace": "✔ Shows your face clearly",
+  "photoGuidelineSingle": "✔ Yourself only, no group pic",
+  "photoGuidelineReal": "✔ No fake pic, object or someone else",
+  "cameraError": "Error initializing camera",
+  "settingsButton": "Settings",
+  "unlockAppButton": "Unlock App",
+  "unlockAppConfirmation": "Are you sure you want to unlock the app?",
+  "rateUs": "Rate Us",
+  "myAccount": "My Account",
+  "usernameLabel": "Username",
+  "birthdayLabel": "Birthday",
+  "no": "No",
+  "yes": "Yes"
+}
+
+
+

@@ -71,26 +71,29 @@ class FloatingButton extends StatelessWidget {
   }
 }
 
-OutlineInputBorder outlineInputBorder() {
+OutlineInputBorder outlineInputBorder(Color color) {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(15),
-    borderSide: const BorderSide(
+    borderSide: BorderSide(
       width: 1,
+      color: color,
     ),
   );
 }
 
-Widget buildDateInputField({
-  TextEditingController? controller,
-  FormFieldValidator<String>? validator,
-  Function()? onTap,
-  int? maxLength,
-  double? width,
-  String? label,
-  String? hintText,
-  String? value,
-  required bool readOnly,
-}) {
+Widget buildDateInputField(
+    {TextEditingController? controller,
+    FormFieldValidator<String>? validator,
+    Function()? onTap,
+    int? maxLength,
+    double? width,
+    String? label,
+    String? hintText,
+    String? value,
+    required bool readOnly,
+    required BuildContext context,
+    TextInputAction? textInputAction,
+    Function(String)? onFieldSubmitted}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
@@ -100,6 +103,8 @@ Widget buildDateInputField({
           controller: controller,
           onTap: onTap,
           maxLength: maxLength,
+          textInputAction: textInputAction,
+          onFieldSubmitted: onFieldSubmitted,
           inputFormatters: [
             LengthLimitingTextInputFormatter(maxLength)
           ], // Limit input to 4 characters
@@ -109,14 +114,12 @@ Widget buildDateInputField({
             hintText: hintText,
             fillColor: Colors.black.withOpacity(0.1),
             contentPadding: const EdgeInsets.all(20),
-            border: outlineInputBorder(),
+            border: outlineInputBorder(
+                Theme.of(context).colorScheme.outlineVariant),
             counterText: '', // Hides the counter text below the TextFormField
           ),
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.w800,
-          ),
+          style: Theme.of(context).textTheme.titleMedium,
+
           initialValue: value,
           readOnly: readOnly,
           textAlign: TextAlign.center,
@@ -127,10 +130,10 @@ Widget buildDateInputField({
         const SizedBox(height: 5),
         Text(
           label,
-          style: const TextStyle(
-            color: Color.fromRGBO(149, 149, 149, 1),
-            fontWeight: FontWeight.w400,
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: Theme.of(context).colorScheme.outlineVariant),
         ),
       }
     ],

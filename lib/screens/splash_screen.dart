@@ -1,6 +1,7 @@
 import 'package:app_task_demo/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -25,23 +26,15 @@ class SplashScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const SizedBox(height: 20),
-                  const Text(
-                    'Are you ready for\nyour test?',
+                  Text(
+                    AppLocalizations.of(context).titleSplashScreen,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const Text(
-                    'Start now by creating your profile and connect!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  Text(AppLocalizations.of(context).subTitleSplashScreen,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.outline)),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
@@ -56,17 +49,17 @@ class SplashScreen extends StatelessWidget {
                       onPressed: () {
                         context.push(Routes.birthdayScreen);
                       },
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Text(
+                        AppLocalizations.of(context).continueButton,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(
+                                color: Theme.of(context).colorScheme.scrim),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 50), // Space from bottom
+                  const SizedBox(height: 50),
                 ],
               ),
             ),

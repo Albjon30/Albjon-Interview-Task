@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
+import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 

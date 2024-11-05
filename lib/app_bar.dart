@@ -103,25 +103,32 @@ class _LeadingButtonState extends State<LeadingButton>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (_isKeyboardVisible) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        } else {
-          context.pop();
-        }
-      },
-      child: Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.transparent,
-          border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
-        ),
-        child: Icon(
-          _isKeyboardVisible ? Icons.close : Icons.arrow_back,
-          color: Colors.white.withOpacity(0.8),
+    return Padding(
+      padding: EdgeInsets.only(right: 50),
+      child: GestureDetector(
+        onTap: () {
+          if (_isKeyboardVisible) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          } else {
+            context.pop();
+          }
+        },
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.transparent,
+            border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
+          ),
+          child: Directionality(
+            textDirection:
+                TextDirection.rtl, // or TextDirection.ltr for LTR languages
+            child: Icon(
+              _isKeyboardVisible ? Icons.close : Icons.arrow_back,
+              color: Colors.white.withOpacity(0.8),
+            ),
+          ),
         ),
       ),
     );

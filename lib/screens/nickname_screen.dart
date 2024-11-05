@@ -1,8 +1,10 @@
 import 'package:app_task_demo/common/widgets.dart';
 import 'package:app_task_demo/routing/routes.dart';
-import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
+import 'package:app_task_demo/shared/constants/fonts/fonts.dart';
+import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NicknameScreen extends StatefulWidget {
   const NicknameScreen({super.key});
@@ -73,26 +75,23 @@ class _NicknameScreenState extends State<NicknameScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Choose your\nnickname",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                ),
+              Text(
+                AppLocalizations.of(context).chooseNickname,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 20),
               buildDateInputField(
                   controller: _nicknameController,
                   readOnly: false,
-                  hintText: "Nickname",
+                  hintText: AppLocalizations.of(context).nicknameLabel,
+                  context: context,
                   maxLength: 25),
               if (_errorMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     _errorMessage!,
-                    style: const TextStyle(color: Colors.red, fontSize: 16),
+                    style: bodyMedium,
                   ),
                 ),
             ],

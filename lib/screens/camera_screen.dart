@@ -2,6 +2,7 @@ import 'package:app_task_demo/routing/routes.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -149,7 +150,7 @@ class _CameraScreenState extends State<CameraScreen> {
             ],
           );
         } else if (snapshot.hasError) {
-          return const Center(child: Text("Error initializing camera"));
+          return Center(child: Text(AppLocalizations.of(context).cameraError));
         } else {
           return const Center(child: CircularProgressIndicator());
         }

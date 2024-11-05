@@ -1,8 +1,9 @@
 import 'package:app_task_demo/common/widgets.dart';
 import 'package:app_task_demo/routing/routes.dart';
-import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
+import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BirthdayScreen extends StatefulWidget {
   const BirthdayScreen({super.key});
@@ -145,13 +146,9 @@ class BirthdayScreenState extends State<BirthdayScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "When’s your\nbirthday?",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                ),
+              Text(
+                AppLocalizations.of(context).birthdayQuestion,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 20),
               Column(
@@ -163,28 +160,37 @@ class BirthdayScreenState extends State<BirthdayScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       buildDateInputField(
-                        label: "Day",
-                        controller: _dayController,
-                        hintText: 'DD',
-                        readOnly: false,
-                        maxLength: 2,
-                      ),
+                          label: AppLocalizations.of(context).day,
+                          controller: _dayController,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).nextFocus();
+                          },
+                          textInputAction: TextInputAction.next,
+                          hintText: 'DD',
+                          readOnly: false,
+                          maxLength: 2,
+                          context: context),
                       const SizedBox(width: 10),
                       buildDateInputField(
-                        label: "Month",
-                        controller: _monthController,
-                        hintText: 'MM',
-                        readOnly: false,
-                        maxLength: 2,
-                      ),
+                          label: AppLocalizations.of(context).month,
+                          controller: _monthController,
+                          hintText: 'MM',
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).nextFocus();
+                          },
+                          readOnly: false,
+                          maxLength: 2,
+                          context: context),
                       const SizedBox(width: 10),
                       buildDateInputField(
-                        label: "Year",
-                        controller: _yearController,
-                        hintText: 'YYYY',
-                        readOnly: false,
-                        maxLength: 4,
-                      ),
+                          label: AppLocalizations.of(context).year,
+                          controller: _yearController,
+                          textInputAction: TextInputAction.done,
+                          hintText: 'YYYY',
+                          readOnly: false,
+                          maxLength: 4,
+                          context: context),
                     ],
                   ),
                   if (_errorMessage != null)
@@ -192,7 +198,11 @@ class BirthdayScreenState extends State<BirthdayScreen> {
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(
                         _errorMessage!,
-                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(
+                                color: Theme.of(context).colorScheme.error),
                       ),
                     ),
                   const SizedBox(height: 20),
@@ -204,21 +214,19 @@ class BirthdayScreenState extends State<BirthdayScreen> {
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: const Color.fromRGBO(149, 149, 149, 0.5)),
+                              color: Theme.of(context).colorScheme.outline),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15))),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.calendar_today,
                             color: Colors.white,
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           Text(
-                            "Choose a Date",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                            AppLocalizations.of(context).chooseDate,
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ],
                       ),

@@ -1,7 +1,8 @@
-import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
+import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -61,25 +62,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildUnlockDialog(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey[900],
-      title: const Text(
-        'Unlock App',
+      title: Text(
+        AppLocalizations.of(context).unlockAppButton,
         style: TextStyle(color: Colors.white),
       ),
-      content: const Text(
-        'Are you sure you want to unlock the app?',
+      content: Text(
+        AppLocalizations.of(context).unlockAppConfirmation,
         style: TextStyle(color: Colors.white),
       ),
       actions: [
         TextButton(
           onPressed: () => context.pop(),
-          child: const Text('No', style: TextStyle(color: Colors.white)),
+          child: Text(AppLocalizations.of(context).no,
+              style: TextStyle(color: Colors.white)),
         ),
         TextButton(
           onPressed: () {
             _unlockApp();
             context.pop();
           },
-          child: const Text('Yes', style: TextStyle(color: Colors.white)),
+          child: Text(AppLocalizations.of(context).yes,
+              style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -92,12 +95,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Settings',
-            style: TextStyle(
-              color: Color.fromRGBO(149, 149, 149, 1),
-              fontSize: 16,
-            ),
+          Text(
+            AppLocalizations.of(context).settingsButton,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.outline),
           ),
           const SizedBox(height: 10),
           Container(
@@ -109,23 +112,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 if (!_isAppUnlocked)
                   ListTile(
-                    title: const Text(
-                      'Unlock App',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    title: Text(
+                      AppLocalizations.of(context).unlockAppButton,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     onTap: _showUnlockDialog,
                   ),
                 if (!_isAppUnlocked) const Divider(color: Colors.grey),
                 ListTile(
-                  title: const Text(
-                    'Rate Us',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  title: Text(
+                    AppLocalizations.of(context).rateUs,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
                   onTap: _rateApp, // Call the feedback dialog
                 ),
@@ -133,12 +132,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'My Account',
-            style: TextStyle(
-              color: Color.fromRGBO(149, 149, 149, 1),
-              fontSize: 16,
-            ),
+          Text(
+            AppLocalizations.of(context).myAccount,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.outline),
           ),
           const SizedBox(height: 10),
           Container(
@@ -149,38 +148,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               children: [
                 ListTile(
-                  title: const Text(
-                    'Username',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  title: Text(
+                    AppLocalizations.of(context).usernameLabel,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
                   trailing: Text(
                     nickname,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ),
                 const Divider(color: Colors.grey),
                 ListTile(
-                  title: const Text(
-                    'Birthday',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  title: Text(
+                    AppLocalizations.of(context).birthdayLabel,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
                   trailing: Text(
                     birthday,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ),
               ],

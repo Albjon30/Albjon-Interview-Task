@@ -2,6 +2,7 @@ import 'package:app_task_demo/common/widgets.dart';
 import 'package:app_task_demo/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GenderSelectionScreen extends StatelessWidget {
   const GenderSelectionScreen({super.key});
@@ -11,50 +12,45 @@ class GenderSelectionScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Which gender do you\nidentify as?",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-          ),
+        Text(
+          AppLocalizations.of(context).genderQuestion,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
-        const Text(
-          "Your gender helps us find the right\n matches for you.",
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 15,
-          ),
-        ),
+        const SizedBox(height: 20),
+        Text(AppLocalizations.of(context).genderHelperText,
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall
+                ?.copyWith(color: Theme.of(context).colorScheme.outline)),
         const SizedBox(height: 20),
         Column(
           children: [
             buildDateInputField(
-              onTap: () {
-                context.push(Routes.addPhotoScreen);
-              },
-              width: double.infinity,
-              value: "Male",
-              readOnly: true,
-            ),
+                onTap: () {
+                  context.push(Routes.addPhotoScreen);
+                },
+                width: double.infinity,
+                value: AppLocalizations.of(context).genderMale,
+                readOnly: true,
+                context: context),
             const SizedBox(height: 16),
             buildDateInputField(
-              onTap: () {
-                context.push(Routes.addPhotoScreen);
-              },
-              width: double.infinity,
-              value: "Female",
-              readOnly: true,
-            ),
+                onTap: () {
+                  context.push(Routes.addPhotoScreen);
+                },
+                width: double.infinity,
+                value: AppLocalizations.of(context).genderFemale,
+                readOnly: true,
+                context: context),
             const SizedBox(height: 16),
             buildDateInputField(
-              onTap: () {
-                context.push(Routes.addPhotoScreen);
-              },
-              width: double.infinity,
-              value: "Other",
-              readOnly: true,
-            ),
+                onTap: () {
+                  context.push(Routes.addPhotoScreen);
+                },
+                width: double.infinity,
+                value: AppLocalizations.of(context).genderOther,
+                readOnly: true,
+                context: context),
           ],
         ),
       ],

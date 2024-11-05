@@ -1,6 +1,7 @@
 import 'package:app_task_demo/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PhotoScreen extends StatelessWidget {
   const PhotoScreen({super.key});
@@ -10,13 +11,9 @@ class PhotoScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Add a nice photo\nof yourself",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-          ),
+        Text(
+          AppLocalizations.of(context).addPhotoPrompt,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 40),
         SizedBox(
@@ -32,13 +29,12 @@ class PhotoScreen extends StatelessWidget {
             onPressed: () {
               context.push(Routes.cameraScreen);
             },
-            child: const Text(
-              "Take your first photo",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Text(
+              AppLocalizations.of(context).takePhotoButton,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.scrim),
             ),
           ),
         ),
@@ -54,8 +50,8 @@ class PhotoScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Make sure that your image",
+              Text(
+                AppLocalizations.of(context).photoGuidelineHeader,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -63,9 +59,12 @@ class PhotoScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              buildGuidelineText("✔ Shows your face clearly"),
-              buildGuidelineText("✔ Yourself only, no group pic"),
-              buildGuidelineText("✔ No fake pic, object or someone else"),
+              buildGuidelineText(
+                  AppLocalizations.of(context).photoGuidelineFace, context),
+              buildGuidelineText(
+                  AppLocalizations.of(context).photoGuidelineSingle, context),
+              buildGuidelineText(
+                  AppLocalizations.of(context).photoGuidelineReal, context),
             ],
           ),
         ),
@@ -73,15 +72,15 @@ class PhotoScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGuidelineText(String text) {
+  Widget buildGuidelineText(String text, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.grey,
-          fontSize: 14,
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .labelSmall
+            ?.copyWith(color: Theme.of(context).colorScheme.outline),
       ),
     );
   }
