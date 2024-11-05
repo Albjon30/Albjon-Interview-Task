@@ -66,17 +66,49 @@ class AppBarWrapper extends StatelessWidget {
   }
 }
 
-class LeadingButton extends StatelessWidget {
+class LeadingButton extends StatefulWidget {
   const LeadingButton({super.key});
+
+  @override
+  State<LeadingButton> createState() => _LeadingButtonState();
+}
+
+class _LeadingButtonState extends State<LeadingButton>
+    with WidgetsBindingObserver {
+  bool _isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _isKeyboardVisible = WidgetsBinding.instance.window.viewInsets.bottom > 0.0;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final isKeyboardVisible =
+        WidgetsBinding.instance.window.viewInsets.bottom > 0.0;
+    if (isKeyboardVisible != _isKeyboardVisible) {
+      setState(() {
+        _isKeyboardVisible = isKeyboardVisible;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (View.of(context).viewInsets.bottom > 0.0) {
+        if (_isKeyboardVisible) {
           FocusManager.instance.primaryFocus?.unfocus();
         } else {
-          context.pop(context);
+          context.pop();
         }
       },
       child: Container(
@@ -88,9 +120,7 @@ class LeadingButton extends StatelessWidget {
           border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
         ),
         child: Icon(
-          View.of(context).viewInsets.bottom > 0.0
-              ? Icons.close
-              : Icons.arrow_back,
+          _isKeyboardVisible ? Icons.close : Icons.arrow_back,
           color: Colors.white.withOpacity(0.8),
         ),
       ),
