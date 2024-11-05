@@ -31,16 +31,16 @@ class SplashScreen extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   const Text(
                     'Start now by creating your profile and connect!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                    ),
+                        color: Colors.white70,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(

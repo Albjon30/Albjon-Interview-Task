@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 
 class ContentAlignment extends StatelessWidget {
   final Widget child;
@@ -39,6 +38,7 @@ class BackgroundImage extends StatelessWidget {
           child: Image.asset(
             image,
             fit: BoxFit.cover,
+            cacheWidth: 1000,
           ),
         ),
         Positioned.fill(
@@ -113,7 +113,10 @@ Widget buildDateInputField({
             counterText: '', // Hides the counter text below the TextFormField
           ),
           style: const TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.w800,
+          ),
           initialValue: value,
           readOnly: readOnly,
           textAlign: TextAlign.center,
@@ -122,8 +125,13 @@ Widget buildDateInputField({
       ),
       if (label != null) ...{
         const SizedBox(height: 5),
-        Text(label,
-            style: const TextStyle(color: Color.fromRGBO(149, 149, 149, 1))),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Color.fromRGBO(149, 149, 149, 1),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       }
     ],
   );

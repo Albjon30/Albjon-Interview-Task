@@ -22,11 +22,15 @@ class CustomTransition extends CustomTransitionPage<void> {
     super.key,
     required super.child,
   }) : super(
-          transitionDuration: const Duration(milliseconds: 100),
+          transitionDuration: const Duration(milliseconds: 70),
           reverseTransitionDuration: const Duration(milliseconds: 0),
           maintainState: false,
-          transitionsBuilder: (_, animation, __, child) {
-            return child;
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              alwaysIncludeSemantics: true,
+              opacity: animation.drive(CurveTween(curve: Curves.ease)),
+              child: child,
+            );
           },
         );
 }
@@ -37,7 +41,6 @@ GoRouter routerWithLocation({
 }) {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   return GoRouter(
-    debugLogDiagnostics: true,
     navigatorKey: routerNavigationKey,
     initialLocation: Routes.splashScreen,
     routes: <RouteBase>[
@@ -55,19 +58,19 @@ GoRouter routerWithLocation({
           GoRoute(
             path: Routes.birthdayScreen,
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return CustomTransition(child: BirthdayScreen());
+              return CustomTransition(child: const BirthdayScreen());
             },
           ),
           GoRoute(
             path: Routes.nicknameScreen,
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return CustomTransition(child: NicknameScreen());
+              return CustomTransition(child: const NicknameScreen());
             },
           ),
           GoRoute(
             path: Routes.genderScreen,
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return CustomTransition(child: GenderSelectionScreen());
+              return CustomTransition(child: const GenderSelectionScreen());
             },
           ),
           GoRoute(
@@ -79,7 +82,7 @@ GoRouter routerWithLocation({
           GoRoute(
             path: Routes.cameraScreen,
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return CustomTransition(child: CameraScreen());
+              return CustomTransition(child: const CameraScreen());
             },
           ),
           GoRoute(

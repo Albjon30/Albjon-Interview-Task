@@ -111,7 +111,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ListTile(
                     title: const Text(
                       'Unlock App',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     onTap: _showUnlockDialog,
                   ),
@@ -119,7 +122,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   title: const Text(
                     'Rate Us',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   onTap: _rateApp, // Call the feedback dialog
                 ),
@@ -145,22 +151,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   title: const Text(
                     'Username',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   trailing: Text(
                     nickname,
-                    style: const TextStyle(color: Colors.grey),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const Divider(color: Colors.grey),
                 ListTile(
                   title: const Text(
                     'Birthday',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   trailing: Text(
                     birthday,
-                    style: const TextStyle(color: Colors.grey),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],

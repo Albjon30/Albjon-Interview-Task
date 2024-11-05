@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ImagePreviewScreen extends StatefulWidget {
   final String? imagePath;
@@ -33,7 +32,6 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
     // Check if the app i s unlocked in SharedPrefgerences
     var isAppUnlocked = await PreferencesHelper.getIsAppUnlocked();
 
-    print(isAppUnlocked);
     setState(() {
       _isAppUnlocked = isAppUnlocked;
       _isBannerVisible = !isAppUnlocked;
@@ -87,21 +85,21 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
           Positioned(
             right: 0,
             bottom: 70,
-            child: Container(
-              width: 72,
-              height: 26,
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isBannerVisible = false; // Hide the banner when closed
-                    });
-                  },
-                  child: const Text(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isBannerVisible = false; // Hide the banner when closed
+                });
+              },
+              child: Container(
+                width: 72,
+                height: 26,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: const Center(
+                  child: Text(
                     'X',
                     style: TextStyle(
                       color: Colors.white,

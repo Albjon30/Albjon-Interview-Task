@@ -40,9 +40,7 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       await _cameraController.initialize();
       setState(() {});
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   @override

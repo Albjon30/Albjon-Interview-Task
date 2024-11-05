@@ -18,26 +18,21 @@ class AppBarWrapper extends StatelessWidget {
       key: scaffoldKey,
       body: Stack(
         children: [
-          MediaQuery.removePadding(
-            context: context,
-            removeBottom: true,
-            child: BackgroundImage(
-              image: screen != Routes.splashScreen
-                  ? "assets/onboarding_background.jpg"
-                  : "assets/splash_screen.jpg",
-            ),
-          ),
-          if (screen != Routes.cameraScreen &&
-              screen != Routes.imagePreviewScreen &&
-              screen != Routes.splashScreen) ...{
+          (screen == Routes.settingsScreen)
+              ? Container(color: Colors.black)
+              : BackgroundImage(
+                  image: screen == Routes.splashScreen
+                      ? "assets/splash_screen.jpg"
+                      : "assets/onboarding_background.jpg",
+                ),
+          if (!_isFullScreen(screen))
             SafeArea(
               child: ContentAlignment(
                 child: child ?? const SizedBox.shrink(),
               ),
             )
-          } else ...{
-            child ?? const SizedBox.shrink()
-          },
+          else
+            child ?? const SizedBox.shrink(),
           if (screen != Routes.splashScreen)
             Positioned(
               top: 20,
@@ -63,20 +58,26 @@ class AppBarWrapper extends StatelessWidget {
       ),
     );
   }
+
+  bool _isFullScreen(String screen) {
+    return screen == Routes.cameraScreen ||
+        screen == Routes.imagePreviewScreen ||
+        screen == Routes.splashScreen;
+  }
 }
 
 class LeadingButton extends StatelessWidget {
-  const LeadingButton({
-    super.key,
-  });
+  const LeadingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        View.of(context).viewInsets.bottom > 0.0
-            ? FocusManager.instance.primaryFocus?.unfocus()
-            : context.pop(context);
+        if (View.of(context).viewInsets.bottom > 0.0) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        } else {
+          context.pop(context);
+        }
       },
       child: Container(
         width: 44,
@@ -112,8 +113,7 @@ class _AppBarActionsState extends State<AppBarActions> {
   @override
   void initState() {
     super.initState();
-    // Set the progres value here only once to prevent resetting the animtion
-    progress = percentage(widget.screen);
+    progress = _calculateProgress(widget.screen);
   }
 
   @override
@@ -135,17 +135,16 @@ class _AppBarActionsState extends State<AppBarActions> {
             onTap: () => context.push(Routes.settingsScreen),
           ),
         ];
-      case Routes.birthdayScreen ||
-            Routes.genderScreen ||
-            Routes.addPhotoScreen ||
-            Routes.nicknameScreen:
+      case Routes.birthdayScreen:
+      case Routes.genderScreen:
+      case Routes.addPhotoScreen:
+      case Routes.nicknameScreen:
         return [
           CircularPercentIndicator(
             radius: 23.0,
             lineWidth: 1.0,
             percent: progress,
             animation: false,
-            animationDuration: 1000,
             backgroundColor: Colors.grey.shade800,
             center: Text(
               "${(progress * 100).toInt()}%",
@@ -161,7 +160,7 @@ class _AppBarActionsState extends State<AppBarActions> {
     }
   }
 
-  double percentage(screen) {
+  double _calculateProgress(String screen) {
     switch (screen) {
       case Routes.birthdayScreen:
         return 0.25;

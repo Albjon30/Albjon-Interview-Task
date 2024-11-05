@@ -16,14 +16,14 @@ class GenderSelectionScreen extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w800,
           ),
         ),
         const Text(
           "Your gender helps us find the right\n matches for you.",
           style: TextStyle(
-            color: Colors.white70,
-            fontSize: 16,
+            color: Colors.grey,
+            fontSize: 15,
           ),
         ),
         const SizedBox(height: 20),

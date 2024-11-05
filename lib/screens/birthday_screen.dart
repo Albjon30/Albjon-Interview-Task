@@ -8,10 +8,10 @@ class BirthdayScreen extends StatefulWidget {
   const BirthdayScreen({super.key});
 
   @override
-  _BirthdayScreenState createState() => _BirthdayScreenState();
+  BirthdayScreenState createState() => BirthdayScreenState();
 }
 
-class _BirthdayScreenState extends State<BirthdayScreen> {
+class BirthdayScreenState extends State<BirthdayScreen> {
   final _formKey = GlobalKey<FormState>();
   final _dayController = TextEditingController();
   final _monthController = TextEditingController();
@@ -96,11 +96,11 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "When’s your\n birthday?",
+                "When’s your\nbirthday?",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 20),

@@ -17,12 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: ThemeData(
-        fontFamily: 'Lato', // Set Lato as the default font family
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontWeight: FontWeight.w400), // Regular
-          bodySmall: TextStyle(fontWeight: FontWeight.w300), // Light
-          headlineMedium: TextStyle(fontWeight: FontWeight.w700), // Bold
-        ),
+        fontFamily: 'Lato',
       ),
     );
   }

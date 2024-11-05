@@ -77,8 +77,8 @@ class _NicknameScreenState extends State<NicknameScreen> {
                 "Choose your\nnickname",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 20),
@@ -92,7 +92,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     _errorMessage!,
-                    style: const TextStyle(color: Colors.red, fontSize: 14),
+                    style: const TextStyle(color: Colors.red, fontSize: 16),
                   ),
                 ),
             ],

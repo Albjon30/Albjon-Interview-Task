@@ -15,10 +15,10 @@ class PhotoScreen extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w800,
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 40),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
@@ -79,7 +79,7 @@ class PhotoScreen extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          color: Colors.white,
+          color: Colors.grey,
           fontSize: 14,
         ),
       ),
