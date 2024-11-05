@@ -22,7 +22,7 @@ class CustomTransition extends CustomTransitionPage<void> {
     super.key,
     required super.child,
   }) : super(
-          transitionDuration: const Duration(milliseconds: 0),
+          transitionDuration: const Duration(milliseconds: 30),
           reverseTransitionDuration: const Duration(milliseconds: 0),
           maintainState: false,
           transitionsBuilder: (_, animation, __, child) {

@@ -40,7 +40,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _unlockApp() async {
-    await PreferencesHelper.setIsAppUnlocked(true);
     setState(() {
       _isAppUnlocked = true;
     });
@@ -55,13 +54,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => _buildUnlockDialog(context),
-    );
-  }
-
-  void _showFeedbackDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => _buildFeedbackDialog(context),
     );
   }
 
@@ -87,35 +79,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             context.pop();
           },
           child: const Text('Yes', style: TextStyle(color: Colors.white)),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFeedbackDialog(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.grey[900],
-      title: const Text(
-        "We Value Your Feedback",
-        style: TextStyle(color: Colors.white),
-      ),
-      content: const Text(
-        "Would you like to send us feedback about your experience?",
-        style: TextStyle(color: Colors.white),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            // Optionally, open an email client or feedback form
-          },
-          child: const Text("Send Feedback",
-              style: TextStyle(color: Colors.white)),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child:
-              const Text("No, Thanks", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -157,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Rate Us',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onTap: _showFeedbackDialog, // Call the feedback dialog
+                  onTap: _rateApp, // Call the feedback dialog
                 ),
               ],
             ),

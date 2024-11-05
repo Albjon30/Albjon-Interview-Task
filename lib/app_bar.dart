@@ -18,10 +18,14 @@ class AppBarWrapper extends StatelessWidget {
       key: scaffoldKey,
       body: Stack(
         children: [
-          BackgroundImage(
-            image: screen != Routes.splashScreen
-                ? "assets/onboarding_background.jpg"
-                : "assets/splash_screen.jpg",
+          MediaQuery.removePadding(
+            context: context,
+            removeBottom: true,
+            child: BackgroundImage(
+              image: screen != Routes.splashScreen
+                  ? "assets/onboarding_background.jpg"
+                  : "assets/splash_screen.jpg",
+            ),
           ),
           if (screen != Routes.cameraScreen &&
               screen != Routes.imagePreviewScreen &&
@@ -70,25 +74,24 @@ class LeadingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pop(context);
+        View.of(context).viewInsets.bottom > 0.0
+            ? FocusManager.instance.primaryFocus?.unfocus()
+            : context.pop(context);
       },
-      child: FocusableActionDetector(
-        onFocusChange: (focused) {},
-        child: Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.transparent,
-            border: Border.all(
-                color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
-          ),
-          child: Icon(
-            View.of(context).viewInsets.bottom > 0.0
-                ? Icons.close
-                : Icons.arrow_back,
-            color: const Color.fromRGBO(149, 149, 149, 1),
-          ),
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+          border: Border.all(
+              color: const Color.fromRGBO(149, 149, 149, 1), width: 1),
+        ),
+        child: Icon(
+          View.of(context).viewInsets.bottom > 0.0
+              ? Icons.close
+              : Icons.arrow_back,
+          color: const Color.fromRGBO(149, 149, 149, 1),
         ),
       ),
     );

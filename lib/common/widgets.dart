@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 class ContentAlignment extends StatelessWidget {
@@ -83,6 +84,7 @@ Widget buildDateInputField({
   TextEditingController? controller,
   FormFieldValidator<String>? validator,
   Function()? onTap,
+  int? maxLength,
   double? width,
   String? label,
   String? hintText,
@@ -97,6 +99,10 @@ Widget buildDateInputField({
         child: TextFormField(
           controller: controller,
           onTap: onTap,
+          maxLength: maxLength,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(maxLength)
+          ], // Limit input to 4 characters
           decoration: InputDecoration(
             labelStyle: const TextStyle(color: Colors.white, fontSize: 16),
             filled: true,
@@ -104,6 +110,7 @@ Widget buildDateInputField({
             fillColor: Colors.black.withOpacity(0.1),
             contentPadding: const EdgeInsets.all(20),
             border: outlineInputBorder(),
+            counterText: '', // Hides the counter text below the TextFormField
           ),
           style: const TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
@@ -115,7 +122,8 @@ Widget buildDateInputField({
       ),
       if (label != null) ...{
         const SizedBox(height: 5),
-        Text(label, style: TextStyle(color: Color.fromRGBO(149, 149, 149, 1))),
+        Text(label,
+            style: const TextStyle(color: Color.fromRGBO(149, 149, 149, 1))),
       }
     ],
   );

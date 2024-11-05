@@ -3,7 +3,6 @@ import 'package:app_task_demo/routing/routes.dart';
 import 'package:app_task_demo/shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NicknameScreen extends StatefulWidget {
   const NicknameScreen({super.key});
@@ -47,6 +46,8 @@ class _NicknameScreenState extends State<NicknameScreen> {
   }
 
   void _onSubmit() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
     setState(() {
       _errorMessage = _validateName();
     });
@@ -82,10 +83,10 @@ class _NicknameScreenState extends State<NicknameScreen> {
               ),
               const SizedBox(height: 20),
               buildDateInputField(
-                controller: _nicknameController,
-                readOnly: false,
-                hintText: "Nickname",
-              ),
+                  controller: _nicknameController,
+                  readOnly: false,
+                  hintText: "Nickname",
+                  maxLength: 25),
               if (_errorMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),

@@ -19,13 +19,13 @@ class SplashScreen extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SizedBox(height: 20),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
                     'Are you ready for\nyour test?',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -34,10 +34,7 @@ class SplashScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
+                  const Text(
                     'Start now by creating your profile and connect!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -45,34 +42,33 @@ class SplashScreen extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      context.push(Routes.birthdayScreen);
-                    },
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                      onPressed: () {
+                        context.push(Routes.birthdayScreen);
+                      },
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 80), // Space from bottom
-              ],
+                  const SizedBox(height: 50), // Space from bottom
+                ],
+              ),
             ),
           ),
         ),
