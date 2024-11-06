@@ -21,7 +21,7 @@
   "photoGuidelineSingle": "✔ وحدك، لا صورة جماعية",
   "photoGuidelineReal": "✔ لا صورة وهمية، أو غرض أو شخص آخر",
   "cameraError": "خطأ في تهيئة الكاميرا",
-  "settings": "الإعدادات",
+  "settingsButton": "الإعدادات",
   "unlockAppButton": "فتح التطبيق",
   "unlockAppConfirmation": "هل أنت متأكد أنك تريد فتح التطبيق؟",
   "rateUs": "قيّمنا",
@@ -29,5 +29,7 @@
   "usernameLabel": "اسم المستخدم",
   "birthdayLabel": "عيد الميلاد",
   "no": "لا",
-  "yes": "نعم"
+  "yes": "نعم",
+  "errorTitleDialog": "حدث خطأ",
+  "ok": "حسناً"
 }

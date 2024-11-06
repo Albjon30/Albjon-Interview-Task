@@ -5,19 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+/// A wrapper that provides a customizable app bar with a child widget.
+///
+/// The [AppBarWrapper] disp lays a background image or color based on the
+/// current screen route, includes an optional child widget, and dynamically
+/// displays app bar actions and a leading button.
+///
+/// - For certain full-screen routes (like the camera or image preview),
+///   the app bar is hidden.
+/// - Other screens display app bar actions like progress indicators and a
+///   settings icon.
+///
+///
 class AppBarWrapper extends StatelessWidget {
+  /// The child widget to display in the body of the screen.
   final Widget? child;
 
+  /// Creates an [AppBarWrapper].
   const AppBarWrapper({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
     var screen = getCurrentRoute(context);
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
       key: scaffoldKey,
       body: Stack(
         children: [
+          // Background customization based on screen
           (screen == Routes.settingsScreen)
               ? Container(color: Colors.black)
               : BackgroundImage(
@@ -25,6 +41,8 @@ class AppBarWrapper extends StatelessWidget {
                       ? "assets/splash_screen.jpg"
                       : "assets/onboarding_background.jpg",
                 ),
+
+          // Main content area with SafeArea for non-fullscreen screens
           if (!_isFullScreen(screen))
             SafeArea(
               child: ContentAlignment(
@@ -33,6 +51,8 @@ class AppBarWrapper extends StatelessWidget {
             )
           else
             child ?? const SizedBox.shrink(),
+
+          // AppBar with actions and leading button for non-splash screens
           if (screen != Routes.splashScreen)
             Positioned(
               top: 20,
@@ -59,6 +79,9 @@ class AppBarWrapper extends StatelessWidget {
     );
   }
 
+  /// Determines if the current screen should display in full-screen mode.
+  ///
+  /// Returns true if the screen should not display the app bar.
   bool _isFullScreen(String screen) {
     return screen == Routes.cameraScreen ||
         screen == Routes.imagePreviewScreen ||
@@ -66,7 +89,13 @@ class AppBarWrapper extends StatelessWidget {
   }
 }
 
+/// A button that serves as the leading button in the app bar.
+///
+/// The [LeadingButton] shows an icon based on whether the keyboard is visible:
+/// - If the keyboard is visible, a close icon is shown to hide the keyboard
+/// - If not, an arrow icon is displayed to nav igate back
 class LeadingButton extends StatefulWidget {
+  /// Creates a [LeadingButton].
   const LeadingButton({super.key});
 
   @override
@@ -90,6 +119,7 @@ class _LeadingButtonState extends State<LeadingButton>
     super.dispose();
   }
 
+  /// Listens for changes in metrics to detect keyboard visibility.
   @override
   void didChangeMetrics() {
     final isKeyboardVisible =
@@ -104,7 +134,7 @@ class _LeadingButtonState extends State<LeadingButton>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 50),
+      padding: const EdgeInsets.only(right: 50),
       child: GestureDetector(
         onTap: () {
           if (_isKeyboardVisible) {
@@ -122,8 +152,7 @@ class _LeadingButtonState extends State<LeadingButton>
             border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
           ),
           child: Directionality(
-            textDirection:
-                TextDirection.rtl, // or TextDirection.ltr for LTR languages
+            textDirection: TextDirection.rtl,
             child: Icon(
               _isKeyboardVisible ? Icons.close : Icons.arrow_back,
               color: Colors.white.withOpacity(0.8),
@@ -135,9 +164,18 @@ class _LeadingButtonState extends State<LeadingButton>
   }
 }
 
+/// A widget that displays app bar actions based on the current screen.
+///
+/// The [AppBarActions] widget shows:
+/// = A settings icon for certain screens.
+/// = A progress indicator for onboarding screens, indicating completion
+///
+/// The displayed actions vary depending on the screen.
 class AppBarActions extends StatefulWidget {
+  /// The current screen route name.
   final String screen;
 
+  /// Creates an [AppBarActions] widget.
   const AppBarActions({super.key, required this.screen});
 
   @override
@@ -163,6 +201,9 @@ class _AppBarActionsState extends State<AppBarActions> {
     );
   }
 
+  /// Builds the list of action widgets based on the screen.
+  ///
+  /// Returns a list of widgets to display in the app bar.
   List<Widget> _buildActions(BuildContext context) {
     switch (widget.screen) {
       case Routes.imagePreviewScreen:
@@ -197,6 +238,9 @@ class _AppBarActionsState extends State<AppBarActions> {
     }
   }
 
+  /// Calculates the progress for onboarding screens based on the screen route.
+  ///
+  /// Returns a double value representing the completion percentage.
   double _calculateProgress(String screen) {
     switch (screen) {
       case Routes.birthdayScreen:
@@ -212,6 +256,7 @@ class _AppBarActionsState extends State<AppBarActions> {
     }
   }
 
+  /// Builds a circular icon button with the given icon and [onTap] callback.
   Widget _buildCircleIcon({
     required IconData icon,
     required VoidCallback onTap,

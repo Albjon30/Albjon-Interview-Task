@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "413977910370",
+    "project_id": "demotaskapp-a526d",
+    "storage_bucket": "demotaskapp-a526d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413977910370:android:1fb6e77be491a5880ac53b",
+        "android_client_info": {
+          "package_name": "com.example.app_task_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC4wKlU61b1jueZN-PA_I_xVEOBZOInNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

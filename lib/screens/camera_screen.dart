@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A circular button that swaps the camera lens when tapped.
+///
+/// This widget is styled as a circular button with a border and displays a
+/// swap icon. Use it within a camera interface to allow users to switch
+/// between front and rear camera lenses.
+///
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
@@ -44,6 +50,26 @@ class _CameraScreenState extends State<CameraScreen> {
     } catch (e) {}
   }
 
+  /// Switches the camera lens between front and rear.
+  ///
+  /// This function retrieves the current camera lens direction and finds
+  /// the opposite one. Then, it initializes the camera with the new direction.
+  void switchCamera() async {
+    final lensDirection = _cameraController.description.lensDirection;
+    CameraDescription newDescription;
+
+    // Finds the opposite lens direction
+    if (lensDirection == CameraLensDirection.front) {
+      newDescription = _availableCameras.firstWhere((description) =>
+          description.lensDirection == CameraLensDirection.back);
+    } else {
+      newDescription = _availableCameras.firstWhere((description) =>
+          description.lensDirection == CameraLensDirection.front);
+    }
+
+    await _initCamera(newDescription);
+  }
+
   @override
   void dispose() {
     _cameraController.dispose();
@@ -68,26 +94,14 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
               Positioned(
                 top: 60,
-                right: 25,
+                right:
+                    Directionality.of(context) == TextDirection.rtl ? null : 25,
+                left:
+                    Directionality.of(context) == TextDirection.rtl ? 25 : null,
                 child: GestureDetector(
                   onTap: () async {
                     // get current lens direction of the cameraa (front / rear)
-                    final lensDirection =
-                        _cameraController.description.lensDirection;
-                    CameraDescription newDescription;
-                    if (lensDirection == CameraLensDirection.front) {
-                      newDescription = _availableCameras.firstWhere(
-                          (description) =>
-                              description.lensDirection ==
-                              CameraLensDirection.back);
-                    } else {
-                      newDescription = _availableCameras.firstWhere(
-                          (description) =>
-                              description.lensDirection ==
-                              CameraLensDirection.front);
-                    }
-
-                    await _initCamera(newDescription);
+                    switchCamera();
                   },
                   child: Container(
                     width: 44,

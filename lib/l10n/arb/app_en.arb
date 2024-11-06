@@ -29,7 +29,9 @@
   "usernameLabel": "Username",
   "birthdayLabel": "Birthday",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "ok": "Ok",
+  "errorTitleDialog": "An Error Ocurred"
 }
 
 
