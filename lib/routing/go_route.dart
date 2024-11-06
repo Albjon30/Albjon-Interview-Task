@@ -22,8 +22,8 @@ class CustomTransition extends CustomTransitionPage<void> {
     super.key,
     required super.child,
   }) : super(
-          transitionDuration: const Duration(milliseconds: 70),
-          reverseTransitionDuration: const Duration(milliseconds: 0),
+          transitionDuration: const Duration(milliseconds: 100),
+          reverseTransitionDuration: const Duration(milliseconds: 50),
           maintainState: false,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(

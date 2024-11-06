@@ -92,7 +92,9 @@ Widget buildDateInputField(
     String? value,
     required bool readOnly,
     required BuildContext context,
+    Function(String)? onChanged,
     TextInputAction? textInputAction,
+    FocusNode? focusNode,
     Function(String)? onFieldSubmitted}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,8 +105,10 @@ Widget buildDateInputField(
           controller: controller,
           onTap: onTap,
           maxLength: maxLength,
+          focusNode: focusNode,
           textInputAction: textInputAction,
           onFieldSubmitted: onFieldSubmitted,
+          onChanged: onChanged,
           inputFormatters: [
             LengthLimitingTextInputFormatter(maxLength)
           ], // Limit input to 4 characters

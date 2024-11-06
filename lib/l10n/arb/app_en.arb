@@ -31,7 +31,9 @@
   "no": "No",
   "yes": "Yes",
   "ok": "Ok",
-  "errorTitleDialog": "An Error Ocurred"
+  "errorTitleDialog": "An Error Ocurred",
+  "errorCameraText": "We couldn't access your camera. Please check that permissions are enabled, then restart the app"
+
 }
 
 

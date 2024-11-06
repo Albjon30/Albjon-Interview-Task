@@ -24,20 +24,25 @@ Future<void> main() async {
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
+
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
 
+  //TODO remove it if production
+  /// By default, Crashlytics only collects reports in release mode.
+  /// Wee can enable it in debug mode for testing purposes:
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
   // Attempt to initialize Google Mobile Ads SDK.
   try {
     await MobileAds.instance.initialize();
-  } catch (e, stacktrace) {
-    if (kDebugMode) {
-      print("Failed to initialize Google Mobile Ads: $e");
-      print(stacktrace);
-    }
+  } catch (e, stackTrace) {
+    FirebaseCrashlytics.instance.recordError(e, stackTrace,
+        reason: 'Failed to initialize Google Mobile Ads:');
+
     adsInitialized = false;
   }
 

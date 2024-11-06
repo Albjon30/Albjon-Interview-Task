@@ -36,13 +36,11 @@ class AppBarWrapper extends StatelessWidget {
           // Background customization based on screen
           (screen == Routes.settingsScreen)
               ? Container(color: Colors.black)
-              : BackgroundImage(
-                  image: screen == Routes.splashScreen
-                      ? "assets/splash_screen.jpg"
-                      : "assets/onboarding_background.jpg",
+              : const BackgroundImage(
+                  image: "assets/onboarding_background.jpg",
                 ),
 
-          // Main content area with SafeArea for non-fullscreen screens
+          // Main content area with SafeArea for non-fullscree n screens
           if (!_isFullScreen(screen))
             SafeArea(
               child: ContentAlignment(
@@ -79,7 +77,7 @@ class AppBarWrapper extends StatelessWidget {
     );
   }
 
-  /// Determines if the current screen should display in full-screen mode.
+  /// Determines if the current screen sh ould display in full-screen mode.
   ///
   /// Returns true if the screen should not display the app bar.
   bool _isFullScreen(String screen) {
@@ -92,7 +90,7 @@ class AppBarWrapper extends StatelessWidget {
 /// A button that serves as the leading button in the app bar.
 ///
 /// The [LeadingButton] shows an icon based on whether the keyboard is visible:
-/// - If the keyboard is visible, a close icon is shown to hide the keyboard
+/// - If the keyboard is visib  le, a close icon is shown to hide the keyboard
 /// - If not, an arrow icon is displayed to nav igate back
 class LeadingButton extends StatefulWidget {
   /// Creates a [LeadingButton].
