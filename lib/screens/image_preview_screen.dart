@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app_task_demo/shared_preferences/shared_data.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -66,6 +67,7 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
   ///
   /// Initializes and loads the banner ad, setting up listeners to handle
   /// ad load success and failure
+  /// crashlytics added
   void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: adUnitId,
@@ -78,8 +80,12 @@ class ImagePreviewScreenState extends State<ImagePreviewScreen> {
             _isLoaded = true;
           });
         },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Banner Ad failed to load: $error');
+        onAdFailedToLoad: (Ad ad, LoadAdError e) {
+          FirebaseCrashlytics.instance.recordError(
+            e,
+            StackTrace.current,
+            reason: 'Banner Ad failed to load',
+          );
           ad.dispose();
         },
       ),

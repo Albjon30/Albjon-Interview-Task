@@ -57,7 +57,7 @@ This is especially important when publishing to the Google Play Store.
 Here some of the Error Handling that I implemented
 
 1. Handle Initialization Errors for Google Mobile Ads
-Wrap the Google Mobile Ads initialization in a try-catch block to handle potential errors gracefully
+ Wrapped the Google Mobile Ads initialization in a try-catch block to handle potential errors gracefully
 If initialization fails, we can log the error or display a message to the user.
 2. Error Handling in Banner Ad Loading
 For ad loading,I improved error handling by showing an error message or
@@ -82,7 +82,7 @@ void _showUnlockDialog() {
 1. Logging and Analytics
 Logging and error tracking (e.g, using Firebase Crashlytics or Sentry) to monitor errors in production.
 This way, we can capture detailed reports on issues that users experience, which helps improve app stability.
-In Our app I will implement Firebase Crashlytics
+In Our app I implemented Firebase Crashlytics
 
 
 --------------- Crashlytics & Analytics ---------

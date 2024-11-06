@@ -34,7 +34,7 @@ Future<void> main() async {
   //TODO remove it if production
   /// By default, Crashlytics only collects reports in release mode.
   /// Wee can enable it in debug mode for testing purposes:
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
   // Attempt to initialize Google Mobile Ads SDK.
   try {

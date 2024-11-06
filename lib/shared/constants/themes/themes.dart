@@ -7,24 +7,8 @@ const Color darkOnSurface = Color(0xFF1B1B1F);
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
-  String _theme = 'light';
-
-  String get theme => _theme;
-
-  set theme(String value) {
-    _theme = value;
-    notifyListeners();
-  }
-
   ThemeMode getTheme() {
-    switch (_theme) {
-      case "light":
-        return ThemeMode.light;
-      case "dark":
-        return ThemeMode.dark;
-      default:
-        return ThemeMode.system;
-    }
+    return ThemeMode.light;
   }
 
   static ThemeData get lightTheme => ThemeData(

@@ -91,7 +91,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     _errorMessage!,
-                    style: bodyMedium,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ),
             ],
