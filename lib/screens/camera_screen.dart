@@ -44,7 +44,7 @@ class _CameraScreenState extends State<CameraScreen> {
     _cameraController = CameraController(
       description,
       ResolutionPreset.max,
-      enableAudio: true,
+      enableAudio: false,
     );
 
     try {
@@ -74,6 +74,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void dispose() {
+    // Dispose of the camera when leaving the screen
     _cameraController?.dispose();
     super.dispose();
   }
@@ -97,32 +98,34 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: CameraPreview(_cameraController!),
                 ),
                 Positioned(
-                  top: 60,
+                  top: 20,
                   right: Directionality.of(context) == TextDirection.rtl
                       ? null
                       : 25,
                   left: Directionality.of(context) == TextDirection.rtl
                       ? 25
                       : null,
-                  child: GestureDetector(
-                    onTap: () async {
-                      // Switch camera
-                      switchCamera();
-                    },
-                    child: Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.8),
-                          width: 1,
+                  child: SafeArea(
+                    child: GestureDetector(
+                      onTap: () async {
+                        // Switch camera
+                        switchCamera();
+                      },
+                      child: Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.8),
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      child: Icon(
-                        Icons.swap_horiz_outlined,
-                        color: Colors.white.withOpacity(0.8),
+                        child: Icon(
+                          Icons.swap_horiz_outlined,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
                       ),
                     ),
                   ),

@@ -123,7 +123,6 @@ Widget buildDateInputField(
             counterText: '', // Hides the counter text below the TextFormField
           ),
           style: Theme.of(context).textTheme.titleMedium,
-
           initialValue: value,
           readOnly: readOnly,
           textAlign: TextAlign.center,

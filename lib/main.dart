@@ -1,6 +1,7 @@
 import 'package:app_task_demo/routing/go_route.dart';
 import 'package:app_task_demo/shared/constants/themes/themes.dart';
 import 'package:app_task_demo/utilities/dialog/error_dialog.dart';
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// Initializes the Google Mobile Ads SDk and starts the app. If initialization
 /// fails, it passes a flag to `MyApop` to show an error dialog.
 /// Initializes the firebase
+///
+
+late List<CameraDescription> cameras;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -46,6 +51,7 @@ Future<void> main() async {
     adsInitialized = false;
   }
 
+  cameras = await availableCameras();
   // Run the app, passing the initialization status to MyApp.
   runApp(MyApp(adsInitialized: adsInitialized));
 }
