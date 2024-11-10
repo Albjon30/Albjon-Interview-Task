@@ -31,6 +31,9 @@
   "no": "No",
   "yes": "Yes",
   "ok": "Ok",
+  "leaveReview": "Leave a Review",
+  "submit": "Submit",
+  "cancel": "Cancel",
   "errorTitleDialog": "An Error Ocurred",
   "errorCameraText": "We couldn't access your camera. Please check that permissions are enabled, then restart the app"
 

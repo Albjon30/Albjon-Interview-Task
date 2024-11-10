@@ -1,5 +1,6 @@
 import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,16 +73,82 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ///
   /// Uses the [InAppReview] package to open the app's store listing.
   Future<void> _rateApp() async {
-    final inAppReview = InAppReview.instance;
-    await inAppReview.openStoreListing();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey[900],
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(
+            AppLocalizations.of(context).leaveReview,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onPrimary),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RatingBar.builder(
+                initialRating: 0,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemBuilder: (context, _) => Icon(
+                  Icons.star_border_outlined,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                onRatingUpdate: (newRating) {},
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: Text(
+                AppLocalizations.of(context).cancel,
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                elevation: WidgetStateProperty.all(0),
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                      color: Theme.of(context).colorScheme.tertiary, width: 2),
+                ),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+              onPressed: () async {
+                final inAppReview = InAppReview.instance;
+                await inAppReview.openStoreListing();
+              },
+              child: Text(
+                AppLocalizations.of(context).submit,
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   /// Displays a dialog to confirm unlocking the app.
   ///
   /// Shows an [AlertDialog] with options to unlock or cancel.
   void _showUnlockDialog() {
-    if (_isAppUnlocked)
+    if (_isAppUnlocked) {
       return; // Prevent  opening dialog if app is already unlocke
+    }
     showDialog(
       context: context,
       builder: (context) => _buildUnlockDialog(context),
