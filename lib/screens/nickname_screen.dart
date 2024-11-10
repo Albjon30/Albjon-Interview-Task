@@ -1,6 +1,5 @@
 import 'package:app_task_demo/common/widgets.dart';
 import 'package:app_task_demo/routing/routes.dart';
-import 'package:app_task_demo/shared/constants/fonts/fonts.dart';
 import 'package:app_task_demo/shared_preferences/shared_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

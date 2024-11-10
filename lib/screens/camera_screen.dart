@@ -148,9 +148,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             context.push(Routes.imagePreviewScreen,
                                 extra: {'imagePath': image.path});
                           }
-                        } catch (e) {
-                          print('Error taking picture: $e');
-                        }
+                        } catch (e) {}
                       },
                       child: Container(
                         width: 74,

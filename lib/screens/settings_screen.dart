@@ -164,17 +164,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       backgroundColor: Colors.grey[900],
       title: Text(
         AppLocalizations.of(context).unlockAppButton,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       ),
       content: Text(
         AppLocalizations.of(context).unlockAppConfirmation,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       ),
       actions: [
         TextButton(
           onPressed: () => context.pop(),
           child: Text(AppLocalizations.of(context).no,
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
         ),
         TextButton(
           onPressed: () {
@@ -182,7 +182,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             context.pop();
           },
           child: Text(AppLocalizations.of(context).yes,
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
         ),
       ],
     );
